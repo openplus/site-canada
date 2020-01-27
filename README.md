@@ -10,6 +10,14 @@ Drupal WxT codebase for `site-canada`.
 * [Composer][composer]
 * [Node][node]
 
+## Setup
+
+Normally you can simply run a `composer install` but at the moment you might need to run the following:
+
+```sh
+export COMPOSER_MEMORY_LIMIT=-1 && composer install
+```
+
 ## Dependencies
 
 The `composer.json` file calls the following dependencies:
