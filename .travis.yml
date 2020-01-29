@@ -40,12 +40,21 @@ before_install:
   - docker-compose -f docker-compose-ci.yml up -d
   - docker ps -a
   - sleep 10
-  # Containers (PHP-FPM and Nginx)
-  - docker login -u $DOCKER_USER -p $DOCKER_PASS
-  - docker push $BASE_IMAGE
-  - docker tag ${DOCKER_IMAGE}_nginx ${BASE_IMAGE}:nginx
-  - docker push ${BASE_IMAGE}:nginx
+
+before_script:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - docker tag ${DOCKER_IMAGE}_nginx ${BASE_IMAGE}:nginx
+  - if [[ -n "$TRAVIS_TAG" ]]; then
+      docker tag ${BASE_IMAGE} ${BASE_IMAGE}:${TRAVIS_TAG} ;
+      docker tag ${BASE_IMAGE}:nginx ${BASE_IMAGE}:${TRAVIS_TAG}-nginx ;
+      docker push ${BASE_IMAGE}:${TRAVIS_TAG} ;
+      docker push ${BASE_IMAGE}:${TRAVIS_TAG}-nginx ;
+    else
+      docker push ${BASE_IMAGE} ;
+      docker push ${BASE_IMAGE}:nginx ;
+    fi
 
 script:
   - make drupal_install
+  - ./docker/bin/drush en canada_core -y
   - sudo make test
