@@ -22,12 +22,10 @@ before_install:
   - sudo apt-get clean
   - sudo apt-get update
   - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+  - sudo systemctl restart docker
   - docker --version
   # Disable xdebug.
   - phpenv config-rm xdebug.ini
-  # Install Drupal.
-  - composer global require "hirak/prestissimo:^0.3"
-  - composer install --prefer-dist --no-interaction
   # Update the docker-compose binary for compose v2 support.
   - sudo rm /usr/local/bin/docker-compose || true
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
@@ -36,10 +34,17 @@ before_install:
   - docker-compose --version
   # Build out the Drupal infrastructure.
   - git clone https://github.com/drupalwxt/docker-scaffold.git docker
+  - source .env
+  - export BASE_IMAGE
   - make build
   - docker-compose -f docker-compose-ci.yml up -d
   - docker ps -a
   - sleep 10
+  # Containers (PHP-FPM and Nginx)
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - docker push $BASE_IMAGE
+  - docker tag ${DOCKER_IMAGE}_nginx ${BASE_IMAGE}:nginx
+  - docker push ${BASE_IMAGE}:nginx
 
 script:
   - make drupal_install
