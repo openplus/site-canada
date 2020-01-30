@@ -12577,12 +12577,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:openplus/canada_core.git",
-                "reference": "35a1f4b7996f19752fc09004a9d212691fa57648"
+                "reference": "0cdcc3f8883fb69e380a7fe3905c971a7c6d44cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/openplus/canada_core/zipball/35a1f4b7996f19752fc09004a9d212691fa57648",
-                "reference": "35a1f4b7996f19752fc09004a9d212691fa57648",
+                "url": "https://api.github.com/repos/openplus/canada_core/zipball/0cdcc3f8883fb69e380a7fe3905c971a7c6d44cd",
+                "reference": "0cdcc3f8883fb69e380a7fe3905c971a7c6d44cd",
                 "shasum": ""
             },
             "require": {
@@ -12652,7 +12652,7 @@
                 "source": "https://github.com/openplus/canada_core/tree/8.x-1.x",
                 "issues": "https://github.com/openplus/canada_core/issues"
             },
-            "time": "2020-01-27T00:33:34+00:00"
+            "time": "2020-01-30T04:04:31+00:00"
         },
         {
             "name": "openplus/canada_experiments",
@@ -12660,12 +12660,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:openplus/canada_experiments.git",
-                "reference": "640c8e79efa8df6c1a747a59ae2bdc86739026ba"
+                "reference": "b9713971cdc555aa0ecf308feaa493618c5c7337"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/openplus/canada_experiments/zipball/640c8e79efa8df6c1a747a59ae2bdc86739026ba",
-                "reference": "640c8e79efa8df6c1a747a59ae2bdc86739026ba",
+                "url": "https://api.github.com/repos/openplus/canada_experiments/zipball/b9713971cdc555aa0ecf308feaa493618c5c7337",
+                "reference": "b9713971cdc555aa0ecf308feaa493618c5c7337",
                 "shasum": ""
             },
             "require": {
@@ -12714,7 +12714,7 @@
                 "source": "https://github.com/openplus/canada_experiments/tree/8.x-1.x",
                 "issues": "https://github.com/openplus/canada_experiments/issues"
             },
-            "time": "2020-01-27T00:35:41+00:00"
+            "time": "2020-01-30T04:03:59+00:00"
         },
         {
             "name": "openplus/openplus_migrate",
