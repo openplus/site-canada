@@ -126,6 +126,10 @@
             "drupal/core": {
                 "Enter drupal/core patch #1885192 description here":
                 "https://www.drupal.org/files/issues/field-1885192-14.patch"
+            },
+            "drupal/ctools": {
+                "Enter drupal/ctools patch #2695955 description here":
+                "https://www.drupal.org/files/issues/2019-07-23/ctools_entity-bundle-condition_2695955-22.patch"
             }
         },
          "patches-ignore": {
