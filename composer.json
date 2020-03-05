@@ -154,7 +154,8 @@
         "openplus/canada_core": "dev-8.x-1.x",
         "openplus/canada_experiments": "dev-8.x-1.x",
         "openplus/openplus_migrate": "dev-8.x-1.x",
-        "openplus/openplus_vbo": "dev-8.x-1.x"
+        "openplus/openplus_vbo": "dev-8.x-1.x",
+        "drupal/views_data_export": "^1.0@beta"
     },
     "autoload": {
         "classmap": [
