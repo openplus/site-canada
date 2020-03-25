@@ -41,7 +41,12 @@ before_install:
   - docker ps -a
   - sleep 10
 
-before_script:
+script:
+  - make drupal_install
+  - ./docker/bin/drush en canada_experiments_core -y
+  - sudo make test
+
+after_script:
   - docker login -u $DOCKER_USER -p $DOCKER_PASS
   - docker tag ${DOCKER_IMAGE}_nginx ${BASE_IMAGE}:nginx
   - if [[ -n "$TRAVIS_TAG" ]]; then
@@ -53,8 +58,3 @@ before_script:
       docker push ${BASE_IMAGE} ;
       docker push ${BASE_IMAGE}:nginx ;
     fi
-
-script:
-  - make drupal_install
-  - ./docker/bin/drush en canada_experiments_core -y
-  - sudo make test
