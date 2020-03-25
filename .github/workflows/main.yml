@@ -1,0 +1,127 @@
+# This workflow will build a docker container, publish it to Azure Container Registry, and deploy it to Azure Kubernetes Service using a helm chart.
+#
+# https://github.com/Azure/actions-workflow-samples/tree/master/Kubernetes
+#
+# To configure this workflow:
+#
+# 1. Set up the following secrets in your workspace:
+#     a. REGISTRY_USERNAME with ACR username
+#     b. REGISTRY_PASSWORD with ACR Password
+#     c. AZURE_CREDENTIALS with the output of `az ad sp create-for-rbac --sdk-auth`
+#
+# 2. Change the values for the REGISTRY_NAME, CLUSTER_NAME, CLUSTER_RESOURCE_GROUP and NAMESPACE environment variables (below).
+on:
+  release:
+    # Only use the types keyword to narrow down the activity types that will trigger your workflow.
+    types: [published]
+
+# Environment variables available to all jobs and steps in this workflow
+env:
+  REGISTRY_NAME: k8scccanadax01acr
+  CLUSTER_NAME: k8s-canadacentral-canada-01-aks
+  CLUSTER_RESOURCE_GROUP: k8s-canadacentral-canada-01-aks
+  STORAGE_ACCOUNT_NAME: k8sdrupal
+  NAMESPACE: wcms
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    # Connect to Azure Container registry (ACR)
+    - uses: azure/docker-login@v1
+      with:
+        login-server: ${{ env.REGISTRY_NAME }}.azurecr.io
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+    # Container build and push to a Azure Container registry (ACR)
+    - run: |
+        docker build -f docker/Dockerfile -t ${{ env.REGISTRY_NAME }}.azurecr.io/site-canada:${{ github.sha }} .
+        docker push ${{ env.REGISTRY_NAME }}.azurecr.io/site-canada:${{ github.sha }}
+
+        docker build --build-arg BASE_IMAGE=${{ env.REGISTRY_NAME }}.azurecr.io/site-canada:${{ github.sha }} -f docker/images/nginx/Dockerfile -t ${{ env.REGISTRY_NAME }}.azurecr.io/site-canada:${{ github.sha }}-nginx .
+        docker push ${{ env.REGISTRY_NAME }}.azurecr.io/site-canada:${{ github.sha }}-nginx
+    # Set the target Azure Kubernetes Service (AKS) cluster.
+    - uses: azure/aks-set-context@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+        cluster-name: ${{ env.CLUSTER_NAME }}
+        resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
+    # Create imagepullsecret for Azure Container registry (ACR)
+    - uses: azure/k8s-create-secret@v1
+      with:
+        container-registry-url: ${{ env.REGISTRY_NAME }}.azurecr.io
+        container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+        container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+        secret-name: ${{ env.REGISTRY_NAME }}-registry-connection
+        namespace: ${{ env.NAMESPACE }}
+    # Create secret for Azure Files mount
+    - uses: azure/k8s-create-secret@v1
+      with:
+        secret-type: generic
+        arguments: --from-literal=azurestorageaccountname=${{ env.STORAGE_ACCOUNT_NAME }} --from-literal=azurestorageaccountkey=${{ secrets.STORAGE_KEY }}
+        secret-name: canada-storage
+        namespace: ${{ env.NAMESPACE }}
+    # Clone the Helm chart
+    - run: |
+        git clone https://github.com/drupalwxt/helm-drupal.git
+    # Baking the helm chart to generate the manifests to deploy
+    - uses: StatCan/k8s-bake@feat-helm-init
+      with:
+        renderEngine: 'helm2'
+        helmChart: './helm-drupal/drupal/'
+        helm-version: 'v2.16.1'
+        releaseName: 'canada'
+        silent: 'true'
+        overrides: |
+          ingress.enabled:true
+          ingress.hosts[0]:${{ secrets.INGRESS_HOST }}
+          ingress.annotations.kubernetes\.io/ingress\.class:istio
+          ingress.path:/*
+          drupal.image:${{ env.REGISTRY_NAME }}.azurecr.io/site-canada
+          drupal.tag:${{ github.sha }}
+          drupal.imagePullSecrets[0].name:${{ env.REGISTRY_NAME }}-registry-connection
+          drupal.password:${{ secrets.DRUPAL_PASSWORD }}
+          drupal.profile:canada
+          drupal.wxtTheme:theme-gcweb
+          drupal.reconfigure:false
+          drupal.extraInstallScripts:drush en canada_ext_migration -y; drush migrate:import --group canada
+          drupal.disableDefaultFilesMount:true
+          drupal.volumes[0].name:files-public
+          drupal.volumes[0].azureFile.secretName:canada-storage
+          drupal.volumes[0].azureFile.shareName:canada-public
+          drupal.volumes[1].name:files-private
+          drupal.volumes[1].azureFile.secretName:canada-storage
+          drupal.volumes[1].azureFile.shareName:canada-private
+          drupal.volumeMounts[0].name:files-public
+          drupal.volumeMounts[0].mountPath:/var/www/html/sites/default/files
+          drupal.volumeMounts[1].name:files-private
+          drupal.volumeMounts[1].mountPath:/var/www/private
+          drupal.initContainers[0].name:init-media-icons-folder
+          drupal.initContainers[0].image:alpine:3.10
+          drupal.initContainers[0].command[0]:mkdir
+          drupal.initContainers[0].command[1]:-p
+          drupal.initContainers[0].command[2]:/files/media-icons/generic
+          drupal.initContainers[0].volumeMounts[0].name:files-public
+          drupal.initContainers[0].volumeMounts[0].mountPath:/files
+          nginx.image:${{ env.REGISTRY_NAME }}.azurecr.io/site-canada
+          nginx.tag:${{ github.sha }}-nginx
+          nginx.imagePullSecrets[0].name:${{ env.REGISTRY_NAME }}-registry-connection
+          nginx.volumes[0].name:files-public
+          nginx.volumes[0].azureFile.secretName:canada-storage
+          nginx.volumes[0].azureFile.shareName:canada-public
+          nginx.volumeMounts[0].name:files-public
+          nginx.volumeMounts[0].mountPath:/var/www/html/sites/default/files
+          mysql.imageTag:5.7.28
+          mysql.mysqlPassword:${{ secrets.MYSQL_PASSWORD }}
+          mysql.mysqlRootPassword:${{ secrets.MYSQL_ROOT_PASSWORD }}
+          mysql.persistence.enabled:true
+          mysql.persistence.storageClass:managed-premium
+          mysql.persistence.size:256Gi
+          files.provider:none
+          minio.enabled:false
+      id: bake
+    # Deploy app to AKS
+    - uses: azure/k8s-deploy@v1
+      with:
+        manifests: ${{ steps.bake.outputs.manifestsBundle }}
+        namespace: ${{ env.NAMESPACE }}

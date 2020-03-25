@@ -9,7 +9,6 @@ html
 vendor
 */*/*/vendor
 */*/vendor
-console
 
 # Ignore Development Files
 compass_app_log.txt
@@ -36,5 +35,6 @@ bower_components/
 *.sass-cache*
 **/sass/*.css
 
-# Custom
-docker/conf/console
+# Ignore the CI and docker directories as they are pulled in from git
+.gitlab-ci
+console

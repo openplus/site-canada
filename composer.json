@@ -7,22 +7,23 @@
     "prefer-stable": true,
     "require-dev": {
         "behat/behat": "^3.0",
-        "behat/mink": "~1.7",
+        "behat/mink": "~1.7.1",
         "behat/mink-extension": "*",
         "behat/mink-goutte-driver": "*",
         "behat/mink-selenium2-driver": "*",
+        "bex/behat-screenshot": "~1.2.8",
         "composer/composer": "^1.4",
-        "drupal/coder": "~8.2.0",
-        "drupal/console": "~1.8.0",
-        "drupal/drupal-extension": "~3.4.0",
-        "pdepend/pdepend": "2.1.0",
-        "phpmd/phpmd": "@stable",
-        "phpunit/phpunit": "^4.8.35 || ^6.1",
+        "drupal/coder": "^8.3.7",
+        "drupal/console": "~1.9.0",
+        "drupal/drupal-extension": "~3.4.1",
         "jcalderonzumba/gastonjs": "~1.0.2",
         "jcalderonzumba/mink-phantomjs-driver": "~0.3.1",
         "mikey179/vfsstream": "~1.2",
+        "pdepend/pdepend": "2.1.0",
+        "phpmd/phpmd": "@stable",
+        "phpunit/phpunit": "^4.8.35 || ^6.1",
         "sebastian/phpcpd": "*",
-        "squizlabs/php_codesniffer": "2.*",
+        "squizlabs/php_codesniffer": "3.*",
         "symfony/css-selector": "~2.8|~3.0",
         "symfony/phpunit-bridge": "^3.4.3"
     },
@@ -48,59 +49,45 @@
         },
         {
             "type": "github",
-            "url": "git@github.com:openplus/canada_core.git"
-        },
-        {
-            "type": "github",
-            "url": "git@github.com:openplus/canada_experiments.git"
-        },
-        {
-            "type": "github",
             "url": "git@github.com:openplus/openplus_migrate.git"
         },
         {
             "type": "github",
             "url": "git@github.com:openplus/openplus_vbo.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/openplus/canada.git"
         }
     ],
     "scripts": {
-      "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-      "post-root-package-install": [
-          "DrupalWxT\\WxT\\ScriptHandler::postCreateProject"
-      ],
-      "pre-install-cmd": [
-          "DrupalWxT\\WxT\\ScriptHandler::checkComposerVersion"
-      ],
-      "pre-update-cmd": [
-          "DrupalWxT\\WxT\\ScriptHandler::checkComposerVersion"
-      ],
-      "post-install-cmd": [
-          "@composer drupal-scaffold",
-          "DrupalWxT\\WxT\\ScriptHandler::deployLibraries"
-      ],
-      "post-update-cmd": [
-          "@composer drupal-scaffold",
-          "DrupalWxT\\WxT\\ScriptHandler::deployLibraries"
-      ]
+        "post-create-project-cmd": "rm -r -f .travis.yml behat.yml .travis-ci",
+        "quick-start": [
+            "composer install"
+        ]
     },
     "extra": {
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "html/"
+            }
+        },
         "installer-types": [
-           "bower-asset",
-           "npm-asset"
+            "bower-asset",
+            "npm-asset"
         ],
         "installer-paths": {
             "html/core": [
                 "type:drupal-core"
             ],
-            "html/libraries/{$name}" : [
+            "html/libraries/{$name}": [
+                "type:drupal-console-library",
                 "type:drupal-library",
                 "type:bower-asset",
-                "type:npm-asset",
-                "type:drupal-console-library"
+                "type:npm-asset"
             ],
             "html/modules/custom/{$name}": [
                 "drupal/wxt_library",
-                "openplus/canada_core",
                 "openplus/openplus_migrate",
                 "openplus/openplus_vbo"
             ],
@@ -111,8 +98,7 @@
                 "type:drupal-profile"
             ],
             "html/themes/custom/{$name}": [
-                "drupal/wxt_bootstrap",
-                "openplus/canada_experiments"
+                "drupal/wxt_bootstrap"
             ],
             "html/themes/contrib/{$name}": [
                 "type:drupal-theme"
@@ -121,7 +107,11 @@
                 "type:drupal-drush"
             ]
         },
+        "composer-exit-on-patch-failure": true,
         "enable-patching": true,
+        "patchLevel": {
+            "drupal/core": "-p2"
+        },
         "patches": {
             "drupal/core": {
                 "Enter drupal/core patch #1885192 description here":
@@ -132,30 +122,33 @@
                 "https://www.drupal.org/files/issues/2019-07-23/ctools_entity-bundle-condition_2695955-22.patch"
             }
         },
-         "patches-ignore": {
+        "patches-ignore": {
+            "acquia/lightning": {
+                "drupal/core": {
+                    "1356276 - Allow profiles to define a base/parent profile and load them in the correct order":
+                    "https://www.drupal.org/files/issues/2019-11-05/1356276-531-8.8.x-4.patch",
+                    "2914389 - Allow profiles to exclude dependencies of their parent":
+                    "https://www.drupal.org/files/issues/2018-07-09/2914389-8-do-not-test.patch"
+                }
+            },
             "drupal/lightning_core": {
-              "drupal/core": {
-                "1356276 - Allow profiles to define a base/parent profile and load them in the correct order":
-                "https://www.drupal.org/files/issues/2019-11-05/1356276-531-8.8.x-4.patch",
-                "2914389 - Allow profiles to exclude dependencies of their parent":
-                "https://www.drupal.org/files/issues/2018-07-09/2914389-8-do-not-test.patch"
-              }
+                "drupal/core": {
+                    "1356276 - Allow profiles to define a base/parent profile and load them in the correct order":
+                    "https://www.drupal.org/files/issues/2019-11-05/1356276-531-8.8.x-4.patch",
+                    "2914389 - Allow profiles to exclude dependencies of their parent":
+                    "https://www.drupal.org/files/issues/2018-07-09/2914389-8-do-not-test.patch"
+                }
             }
         }
     },
     "require": {
         "composer/installers": "^1.2",
-        "cweagans/composer-patches": "^1.6.0",
+        "cweagans/composer-patches": "^1.6.7",
         "oomphinc/composer-installers-extender": "^1.1",
-        "drupal-composer/drupal-scaffold": "^2.0.0",
+        "drupal/core-composer-scaffold": "*",
         "drush/drush": "^9.0",
-        "drupalwxt/wxt": "3.0.6",
-        "acquia/lightning": "4.1.1",
-        "openplus/canada_core": "dev-8.x-1.x",
-        "openplus/canada_experiments": "dev-8.x-1.x",
-        "openplus/openplus_migrate": "dev-8.x-1.x",
-        "openplus/openplus_vbo": "dev-8.x-1.x",
-        "drupal/views_data_export": "^1.0@beta"
+        "acquia/lightning": "4.1.3",
+        "openplus/canada": "dev-feat-tbs"
     },
     "autoload": {
         "classmap": [
