@@ -56,5 +56,5 @@ before_script:
 
 script:
   - make drupal_install
-  - ./docker/bin/drush en canada_core -y
+  - ./docker/bin/drush en canada_experiments_core -y
   - sudo make test
