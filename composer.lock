@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c4adca634d17125143db9eec93d9178b",
+    "content-hash": "e06774c7d95c753feb36ad781ca867b3",
     "packages": [
         {
             "name": "acquia/lightning",
@@ -178,16 +178,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.133.43",
+            "version": "3.133.44",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "7c8211d403614f83ce499ee217248660456d2f46"
+                "reference": "00df425deebdde3f3bebfde446a4250695dc47e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7c8211d403614f83ce499ee217248660456d2f46",
-                "reference": "7c8211d403614f83ce499ee217248660456d2f46",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/00df425deebdde3f3bebfde446a4250695dc47e4",
+                "reference": "00df425deebdde3f3bebfde446a4250695dc47e4",
                 "shasum": ""
             },
             "require": {
@@ -258,7 +258,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-03-24T18:18:11+00:00"
+            "time": "2020-03-25T18:15:47+00:00"
         },
         {
             "name": "bower-asset/cropper",
@@ -2254,17 +2254,17 @@
         },
         {
             "name": "drupal/acquia_connector",
-            "version": "1.20.0",
+            "version": "1.21.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/acquia_connector.git",
-                "reference": "8.x-1.20"
+                "reference": "8.x-1.21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/acquia_connector-8.x-1.20.zip",
-                "reference": "8.x-1.20",
-                "shasum": "679bcbe343fc71c6c9d8e1b0331ed486a17941ce"
+                "url": "https://ftp.drupal.org/files/projects/acquia_connector-8.x-1.21.zip",
+                "reference": "8.x-1.21",
+                "shasum": "3e0317f05a26209f2e29b1655327e80e441d7f11"
             },
             "require": {
                 "drupal/core": "^8.7 || ^9",
@@ -2285,8 +2285,8 @@
                     "dev-8.x-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.20",
-                    "datestamp": "1585001262",
+                    "version": "8.x-1.21",
+                    "datestamp": "1585163393",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -12707,17 +12707,17 @@
             "time": "2017-03-31T16:57:39+00:00"
         },
         {
-            "name": "openplus/canada",
+            "name": "openplus/canada_experiments",
             "version": "dev-8.x-1.x",
             "source": {
                 "type": "git",
-                "url": "https://github.com/openplus/canada.git",
-                "reference": "5451c0b6fb4bb5e127ef1523a21c9701e444e656"
+                "url": "https://github.com/openplus/canada_experiments.git",
+                "reference": "e3d862602735a88aa0a231e2ae25a73e7137223d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/openplus/canada/zipball/5451c0b6fb4bb5e127ef1523a21c9701e444e656",
-                "reference": "5451c0b6fb4bb5e127ef1523a21c9701e444e656",
+                "url": "https://api.github.com/repos/openplus/canada_experiments/zipball/e3d862602735a88aa0a231e2ae25a73e7137223d",
+                "reference": "e3d862602735a88aa0a231e2ae25a73e7137223d",
                 "shasum": ""
             },
             "require": {
@@ -12840,7 +12840,7 @@
                 "GPL-2.0+"
             ],
             "description": "Project template for Drupal 8 sites built with the WxT distribution.",
-            "time": "2020-03-25T17:25:13+00:00"
+            "time": "2020-03-25T19:15:22+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -20035,7 +20035,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "openplus/canada": 20,
+        "openplus/canada_experiments": 20,
         "phpmd/phpmd": 0
     },
     "prefer-stable": true,
