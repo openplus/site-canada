@@ -34,9 +34,9 @@ The [Drupal WxT][wxt] distribution is a web content management system which assi
 
 The [CANADA Core][canada_core] module houses all of the additional customization that are made on top of Drupal WxT. Normally this can all be done in an (sub) installation profile but for the moment to reduce complexity this is the current route.
 
-### CANADA Bootstrap
+### CANADA Experiments
 
-The [CANADA Bootstrap][canada_bootstrap] theme which itself is a sub theme of [WxT Bootstrap][wxt_bootstrap] houses all of the additional theming related customizations that are made on top of of [Drupal WxT][wxt].
+The [CANADA Experiments][canada_experiments] theme which itself is a sub theme of [WxT Bootstrap][wxt_bootstrap] houses all of the additional theming related customizations that are made on top of of [Drupal WxT][wxt].
 
 ## Project
 
@@ -68,7 +68,7 @@ List of common commands are as follows:
 
 
 [canada_core]:                https://github.com/openplus/canada/tree/8.x-1.x/modules/custom/canada_core
-[canada_bootstrap]:           https://github.com/openplus/canada/tree/8.x-1.x/themes/custom/canada_bootstrap
+[canada_experiments]:         https://github.com/openplus/canada/tree/8.x-1.x/themes/custom/canada_experiments
 [ci]:                         https://travis-ci.org/statcan/site-canada
 [ci-badge]:                   https://travis-ci.org/statcan/site-canada.svg?branch=8.x
 [composer]:                   https://getcomposer.org
