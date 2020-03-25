@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d0dac54e091f4a297fe17a5df13ea5d4",
+    "content-hash": "c4adca634d17125143db9eec93d9178b",
     "packages": [
         {
             "name": "acquia/lightning",
@@ -12712,12 +12712,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/openplus/canada.git",
-                "reference": "1b9fcc9b9b3ea6e021092f0f04374fd2d2c9fa17"
+                "reference": "4f09db16aa58d0edcb4e1702b2181ba33aba93ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/openplus/canada/zipball/1b9fcc9b9b3ea6e021092f0f04374fd2d2c9fa17",
-                "reference": "1b9fcc9b9b3ea6e021092f0f04374fd2d2c9fa17",
+                "url": "https://api.github.com/repos/openplus/canada/zipball/4f09db16aa58d0edcb4e1702b2181ba33aba93ce",
+                "reference": "4f09db16aa58d0edcb4e1702b2181ba33aba93ce",
                 "shasum": ""
             },
             "require": {
@@ -12840,11 +12840,7 @@
                 "GPL-2.0+"
             ],
             "description": "Project template for Drupal 8 sites built with the WxT distribution.",
-            "support": {
-                "source": "https://github.com/openplus/canada/tree/8.x-1.x",
-                "issues": "https://github.com/openplus/canada/issues"
-            },
-            "time": "2020-03-25T15:49:54+00:00"
+            "time": "2020-03-25T16:15:25+00:00"
         },
         {
             "name": "paragonie/random_compat",
