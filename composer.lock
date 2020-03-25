@@ -12712,12 +12712,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/openplus/canada_experiments.git",
-                "reference": "e3d862602735a88aa0a231e2ae25a73e7137223d"
+                "reference": "b8c5698ddf9c05402c33ff3bda54045559936560"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/openplus/canada_experiments/zipball/e3d862602735a88aa0a231e2ae25a73e7137223d",
-                "reference": "e3d862602735a88aa0a231e2ae25a73e7137223d",
+                "url": "https://api.github.com/repos/openplus/canada_experiments/zipball/b8c5698ddf9c05402c33ff3bda54045559936560",
+                "reference": "b8c5698ddf9c05402c33ff3bda54045559936560",
                 "shasum": ""
             },
             "require": {
@@ -12840,7 +12840,7 @@
                 "GPL-2.0+"
             ],
             "description": "Project template for Drupal 8 sites built with the WxT distribution.",
-            "time": "2020-03-25T19:15:22+00:00"
+            "time": "2020-03-25T19:56:21+00:00"
         },
         {
             "name": "paragonie/random_compat",
