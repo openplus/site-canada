@@ -1,9 +1,9 @@
-Composer Project Template for CANADA
-==================================
+Composer Project Template for Canada Experiments
+================================================
 
 [![Build Status][ci-badge]][ci]
 
-Drupal WxT codebase for `site-canada`.
+Drupal WxT codebase for `site-canada-experiments`.
 
 ## Requirements
 
@@ -23,16 +23,16 @@ export COMPOSER_MEMORY_LIMIT=-1 && composer install
 The `composer.json` file calls the following dependencies:
 
 * [WxT][wxt]
-* [CANADA Core][canada_core]
-* [CANADA Bootstrap][canada_bootstrap]
+* [CANADA Experiments Core][canada_experiments_core]
+* [CANADA Experiments][canada_experiments]
 
 ### WxT
 
 The [Drupal WxT][wxt] distribution is a web content management system which assists in building and maintaining innovative Web sites that are accessible, usable, and interoperable. This distribution is open source software and free for use by departments and external Web communities. This distribution relies and integrates extensively with the WET-BOEW jQuery Framework for improved accessible markup.
 
-### CANADA Core
+### CANADA Experiments Core
 
-The [CANADA Core][canada_core] module houses all of the additional customization that are made on top of Drupal WxT. Normally this can all be done in an (sub) installation profile but for the moment to reduce complexity this is the current route.
+The [CANADA Experiments Core][canada_experiments_core] module houses all of the additional customization that are made on top of Drupal WxT. Normally this can all be done in an (sub) installation profile but for the moment to reduce complexity this is the current route.
 
 ### CANADA Experiments
 
@@ -67,10 +67,10 @@ List of common commands are as follows:
 | Updating Drupal Core exclusively                | ```composer update drupal/core```                      |
 
 
-[canada_core]:                https://github.com/openplus/canada/tree/8.x-1.x/modules/custom/canada_core
+[canada_experiments_core]:    https://github.com/openplus/canada/tree/8.x-1.x/modules/custom/canada_experiments_core
 [canada_experiments]:         https://github.com/openplus/canada/tree/8.x-1.x/themes/custom/canada_experiments
-[ci]:                         https://travis-ci.org/statcan/site-canada
-[ci-badge]:                   https://travis-ci.org/statcan/site-canada.svg?branch=8.x
+[ci]:                         https://travis-ci.org/openplus/site-canada-experiments
+[ci-badge]:                   https://travis-ci.org/openplus/site-canada-experiments.svg?branch=8.x
 [composer]:                   https://getcomposer.org
 [node]:                       https://nodejs.org
 [wxt]:                        https://github.com/drupalwxt/wxt
