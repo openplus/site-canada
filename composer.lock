@@ -7722,7 +7722,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.12",
-                    "datestamp": "1585576513",
+                    "datestamp": "1585576662",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -12712,12 +12712,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/openplus/canada_experiments.git",
-                "reference": "e39fc4232725cc9fda929f8e94593f8d2819b3b1"
+                "reference": "9d2b0e95cf212c0d0cd8f4499e7c2ec3d796f3bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/openplus/canada_experiments/zipball/e39fc4232725cc9fda929f8e94593f8d2819b3b1",
-                "reference": "e39fc4232725cc9fda929f8e94593f8d2819b3b1",
+                "url": "https://api.github.com/repos/openplus/canada_experiments/zipball/9d2b0e95cf212c0d0cd8f4499e7c2ec3d796f3bf",
+                "reference": "9d2b0e95cf212c0d0cd8f4499e7c2ec3d796f3bf",
                 "shasum": ""
             },
             "require": {
@@ -12840,7 +12840,7 @@
                 "GPL-2.0+"
             ],
             "description": "Project template for Drupal 8 sites built with the WxT distribution.",
-            "time": "2020-03-30T16:40:49+00:00"
+            "time": "2020-03-30T17:23:24+00:00"
         },
         {
             "name": "paragonie/random_compat",
